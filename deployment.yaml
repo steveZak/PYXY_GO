@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment                 # Type of Kubernetes resource
+metadata:
+  name: pyxy-go           # Name of the Kubernetes resource
+spec:
+  replicas: 1                    # Number of pods to run at any given time
+  selector:
+    matchLabels:
+      app: pyxy-go        # This deployment applies to any Pods matching the specified label
+  template:                      # This deployment will create a set of pods using the configurations in this template
+    metadata:
+      labels:                    # The labels that will be applied to all of the pods in this deployment
+        app: pyxy-go 
+    spec:                        # Spec for the container which will run in the Pod
+      containers:
+      - name: pyxy-go
+        image: gcr.io/***
+        imagePullPolicy: IfNotPresent
+        resources:
+          limits:
+            memory: 2100Mi
+            cpu: "3.25"
+        ports:
+          - containerPort: 8080  # Should match the port number that the Go application listens on
